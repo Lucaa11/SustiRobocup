@@ -1,0 +1,207 @@
+CORSO PYTHON APPUNTI
+
+-Dati 
+ +Come dichiarare un dato
+  x = (valore)
+
+ +Variabile list indica una collezion di dati
+
+ +Castare significa convertire il tipo di variabile in quanto non posso concatenare variabili di diverso tipo
+  per farlo diventare una stringa ----> x = str(5)
+  per farlo diventare un numero intero ----> x = int(5)
+   
+  +Stringe = un insieme di singolo caratteri
+     x= " ciao " 
+     printf(x[0]) lo 0 è l'indice della lettera p
+   
+  +Booleani
+    x=True
+    y=False
+
+ -IF
+   if x < 10 :
+      .....
+      .....
+   print(" non fa piu parte del if")
+
+   if x < 10 :
+     ....
+   else : ....
+
+   if x < 10 :
+     ....
+   else if :
+
+ -WHILE
+   while i < 6 :
+
+    if ..... :
+     break // serve per interrompere un ciclo
+     continue o pass // serve per far continuare il programma 
+
+ -FOR
+   for ( elemento singolo di un insieme ) in ( gruppo di elementi) : 
+  
+     es  stringa = "anguria"
+         for lettera in stringa:
+		printf(lettera)
+
+ LISTA
+  x = [ milano, roma, napoli] // creazione di una lista con parentesi quadre
+  x = list(("milano" , "roma" , "napoli"))
+ 
+     print(type(x))   // type serve per mandare a schermo il tipo di variabile
+     print(len(x))    // len serve per scoprire la lunghezza di una lista ossia la quantita di elementi all'interno 
+     print(x[0])      // stampa la stringa corrispondente all'indice 0 della lista quindi in questo caso milano
+     print(x[2:])     // indica un range in questo caso da 2 a tutto quello che c'è dopo
+
+
+ TUPLE
+ collezioni di dati non modificabili una volta creata , si crea con le parentesi tonde
+  
+    x = ("milano", true, 45)         // possiamo avere anche tipi di variabili diverse
+    x= ("milano",)                   // per creare una tupla con un solo valore
+    x = tuple(("milano","roma"))     // per creare una tupla con piu valori
+    x.remove("milano")               // per eliminare un qualcosa da una lista:
+    x = lista_citta.index ("milano") //per vedere l'indice di un valore
+    x = lista_citta.count ("milano") // conta quante volte un valore è all'interno della tupla
+
+ 
+  SET
+  collezioni di dati non modificabili e non ordinati, si crea con le parentesi graffe
+  non ha indici e non segue un ordine
+ 
+     x = {"milano", "roma"}       //per creare un set
+     x = set(("milano","roma"))   //per creare un set
+
+     x.add("venezia")             //per aggiungere elementi 
+     x.update(y)                  // per aggiungere elemeti ad x di y
+     x.remove("roma")             // per rimuovere elementi se siamo sicuri che l'elemento ci sia
+     x.discard                    // per rimuovere elementi 
+     x.pop("roma")                // per rimuovere un elemento
+     del x                        // per eliminare il set x
+     x.union                      // per unire elementi
+     
+
+ DICTIONARY
+ collezioni di dati ordinati modificabili ma non duplicati e sono molti descrittivi e divisi in coppie
+  
+  x = {
+      "nome": "Luca",
+      "cognome": "Leonardi",
+      "età" : 17
+       }
+  x = x.keys                  // mi trova le chiavi di x quindi capiamo le proprietà di x ad esempio nome, cognome, età
+  x.update({"nome": "Asia"})  // per modificare o aggiungere i valori
+  x.pop("nome")               // per rimuevere valori
+  x.clear()                   // per pulire il dictionary
+  del x                       // per eliminare il dictionary
+  x.copy                      // per copiare il dictionary
+  x = {                       // per avere un dict dentro un altro dict
+      "nome": "Luca",
+      "cognome": "Leonardi",
+      "età" : 17, 
+      " indirizzo": { 
+         "citta": "milano",
+         "cap": "36078", 
+         "civico": 28
+           }
+       }                            
+  print(x["nome"]["indirizzo"]  // per prendere dei valori da uno dict dentro un altro dict
+
+ - FUNZIONI
+ Un blocco di codice al cui interno ci sono gruppi di informazioni che possono essere richimate
+ 
+ def fai_la_pasta() :                //def serve per definire la funzione nelle parentesi metto l'argomento
+    ........
+ fai_la_pasta()                      // serve per richiamare la funzione
+ def fai_la_pasta(tipo_pasta) :      // per definire un parametro
+     print("metti" + tipo_pasta)     // gli dici che ti inseressa anche il tipo di pasta
+ fai_la_pasta("spaghetti")           // richiamo la funzione indicando il tipo_pasta ad esempio fusilli
+ 
+ def fai_somma(nm1,nm2)
+     somma = nm1 + nm2 
+     return somma                    // return si usa per portare la somma fuori dalla funzione
+  x = fai_somma(2,2)
+  print(x)
+
+
+- CLASSI                          
+   	
+ class Persona :              // la classe è lo stampo e l'oggetto è quello che viene stampato
+     nome = "Luca"            // proprietà della classe
+     cognome = "Leonardi"     // proprietà della classe
+ 
+ persona1 = Persona()         // persona1 è un oggetto quindi non è una stringa ed è dell'istanza persona, deriva da Persona()
+ persona2 = Persona()         // persona2 è un oggetto quindi non è una stringa ed è dell'istanza persona, deriva da Persona()
+
+ class Persona :  
+    def _init_(self,nome,cognome):        // è una funzione è il costruttore, ogni funzione all'interno di essa
+      self.nome = nome
+      self.cognome = cognome 
+
+ persona1= Persona("Luca", "Leonardi")
+ persona2= Persona("Paolo","Leonardi")
+ print(persona2.nome)
+ print(Persona("King","Okai").nome)       // utilizzato per evitare di utilizzare una variabile in più
+ del persona2                             // serve per eliminare l'oggetto persona2
+ + SELF
+  ci aiuta a capire di che istanza stiamo parlando (es: se è persona1 o persona2)
+  permette 
+
+ -EREDITARIETA'
+  Si utilizza per ereditare informazioni da una classe principale ad una secondaria
+    
+  Class insegnate(Persona):               // questa classe insegnate estende la classe persona
+   pass                                   // utilizzata dopo i due punti in caso non venga scritto nulla per non ottenere errore
+   persona1 = Persona("Luca","Leonardi")  
+   insegnante1= Insegnate ("Paolo","Neri") // mi da gia di default nome e cognome che sono gli oggetti che erano contenuti nella classe Persona
+
+ -MODULO [ESSENZIALI]
+  E' una libreria 
+ 
+   import ......                    // per impotare un file contenente da una ad infinite funzioni, delle variabili 
+   import..... as modulo            // serve per modificare il nome del modulo nel programma
+
+   dir viene utilizzato per mettere a schermo
+   from modulo import persona1      // serve per importare solo una parte di programma richiamata dal modulo
+
+- TRY EXCEPT
+
+  Try permette di eseguire e testare un bloccho di codice
+  Except permette di raccogliere l'errore che potrebbe essere generato dal codice testato in try
+  Finally permette di eseguire un altro codice una volta finito try e except
+
+  try:                       // try serve per provare 
+     print(x)               // noi NON abbiamo x 
+  except:                  // nel caso in cui fosse un problema
+     pass                 // l'errore viene rilevato ma va comunque avanti col programma
+
+
+  x=5                             // in questo programma quando viene eseguito prima esegue un controllo se ci fosse un errore direbbe "x non definita" se non ci fosse "nessun problema"
+  try:
+     print(x)
+  except:
+     print("x non definita")
+  else:
+     print("nessun problema")
+
+  finally:                    // finally fa qualcosa a prescindere dall' errore
+       print ("finally")
+  
+ -PASS 
+  Funzione che non fa nulla utlizzato dopo i due punti per non avere errori
+
+ -FILE
+  Per aprire un file abbiamo 4 modi:
+   (1) r ==> read, apre il file per leggere un file se esiste altrimenti darà errore (posso solo leggere)
+   (2) a ==> append, apre il file e serve per aggiungere sotto, se il file non esiste lo va a creare 
+   (3) w ==> write, apre il file e serve per scrivere, se il file non esiste lo crea
+   (4) x ==> create, serve per creare un nuovo file,se il file esiste da errore
+ 
+  file = open("testo.txt")      // se scritto cosi è come se fosse in read e quindi sta leggendo
+  file = open("testo.txt","r")  // è in modalità lettura 
+  print(file.read())               //all'interno della seconda parentesi inserisco quanti caratteri voglio che vengano letti
+  
+
+  
