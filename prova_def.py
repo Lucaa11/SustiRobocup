@@ -7,9 +7,16 @@ from smbus import SMBus
 import time
 import RPi.GPIO as gpio
 from giros import BNO055
+import cv2
+import numpy as np
+import subprocess
+from multiprocessing import *
+from classecroce import camera
 
+#I2C
 bus = SMBus (1)
 arduino=0x10
+
 #LASER
 sens1 = 0x11
 sens2 = 0x12
@@ -22,8 +29,18 @@ for sensor in sensors.tof_sensor:
     else:
         sensor.default_settings()
 
+#TELECAMERA
+cam =  cv2.VideoCapture(0)
+telecamera = camera(cam)
+telecamera.run('a')
+cam.release()
+cv2.destroyAllWindows()
+
 
 #BNO
+giroad = 0x... 
+giroas = 0x...
+
 gyro=BNO055()
 if gyro.begin() is not True:
     print("Error initializing device")
@@ -96,7 +113,8 @@ while True:
             bus.write_byte(arduino,giroad)
             print('girato a destra')
             rst()
-        
+
+
     
         
         
