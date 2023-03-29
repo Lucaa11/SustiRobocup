@@ -28,8 +28,8 @@ class Camera:
             upper_red = np.array([180, 255, 255 ])
             blur = cv2.GaussianBlur(frame,(5,5),0)
             #definisco il range di colori per il nero in BGR
-            lower_black = np.array([0, 0, 0])
-            upper_black = np.array([205, 85, 76])
+            lower_black = np.array([15, 15, 15])
+            upper_black = np.array([190, 185, 185])
             # fa il mascheramento converte tramite hsv da BGR a HSV
             maskr = cv2.inRange(hsv, lower_red, upper_red)
             maskb = cv2.inRange(hsv, lower_black, upper_black)

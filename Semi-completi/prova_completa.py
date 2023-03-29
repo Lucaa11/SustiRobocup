@@ -60,9 +60,9 @@ def destra():
     bus.write_byte(arduino, fermo)
     sleep(0.5)
     print("girato a destra")
-    #bus.write_byte(arduino,avanti)
-    #sleep(0.2)
-    #bus.write_byte(arduino, fermo)
+    bus.write_byte(arduino,avanti)
+    sleep(0.2)
+    bus.write_byte(arduino, fermo)
     
     
 def destra_x2():
@@ -97,9 +97,9 @@ def sinistra():
     bus.write_byte(arduino, fermo)
     sleep(0.5)
     print("girato a sinistra")
-    #bus.write_byte(arduino,avanti)
-    #sleep(0.2)
-    #bus.write_byte(arduino, fermo)
+    bus.write_byte(arduino,avanti)
+    sleep(0.2)
+    bus.write_byte(arduino, fermo)
     
 
 
@@ -145,38 +145,26 @@ def movimento():
         
         
         
-        if(laser2==1):
-            if(laser3==0):
-                destra()
-                sleep(4)
-                continue
-            elif(laser1==0):
-                sinistra()
-                sleep(4)
-                continue
-            else:
-                destra_x2()
-                destra_x2()
-                sleep(4)
-                continue
-                
-                
+        if(laser3 == 0):
+            destra()
+            sleep(4)
+            continue
+        elif (laser2 == 0):
+            bus.write_byte(arduino,avanti)
+            sleep(0.5)
+            bus.write_byte(arduino, fermo)
+            sleep(3.5)
+            continue
+        elif(laser1 == 0):
+            sinistra()
+            sleep(4)
+            continue
         else:
-            if(laser3==0):
-               destra()
-               sleep(4)
-               continue
-            elif(laser1 == 0):
-               sinistra()
-               sleep(4)
-               continue
-            else:
-                bus.write_byte(arduino,avanti)
-                sleep(0.2)
-                bus.write_byte(arduino, fermo)
-                print("Avanti")
-                sleep(4)
-                continue
+            destra_x2()
+            destra_x2()
+            sleep(3)
+            continue
+            
         
         
 def camera():

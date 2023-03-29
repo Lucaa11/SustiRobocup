@@ -1,21 +1,29 @@
 import cv2
 import numpy as np
 import subprocess
-from multiprocessing import *
+import multiprocessing
 from classecroce import camera
 from Prova_telecameara import Camera
 
 
 
+#telecamera = Camera()
+#telecamera.telecamera()
+
+def camera():
+    telecamera = Camera()
+    telecamera.telecamera()
+    
+
+    
+
+#p1 = multiprocessing.Process(target = movimento)
+p2 = multiprocessing.Process(target = camera)
 
 
+#p1.start()
+p2.start()
 
 
-telecamera = Camera()
-telecamera.telecamera()
-#while True:
-    #telecamera.telecamera()
-    #print(telecamera.telecamera())
-
-
-
+#p1.join()
+p2.join()

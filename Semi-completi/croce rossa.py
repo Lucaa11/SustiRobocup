@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import subprocess
 
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(-1)
 exposuretime = 300 #va da 78 a 1250
 
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
@@ -32,7 +32,6 @@ while True:
                  print('trovato')
         
              else:
-                 
                  print('no croce')
         else:
             print('no croce')
