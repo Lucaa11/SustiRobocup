@@ -39,11 +39,20 @@ for sensor in sensors.tof_sensor:
     else:
         sensor.default_settings()
         
-        
+
+#GIROSCOPIO
 gyro=BNO055()
 if gyro.begin() is not True:
     print("Error initializing device")
     exit()
+
+#INTERRUPT
+a=0
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #cambiare pin
+def my_callback(channel):  
+    print ('ricevuto')
+    a+=1
+GPIO.add_event_detect(21, GPIO.RISING, callback=my_callback, bouncetime=300)#rising edge
 
 
 def destra():
@@ -106,64 +115,69 @@ def sinistra():
 
 def movimento():
     
-    muro=200
-
-
+    muro=120
     laser1 = 0
     laser2 = 0
     laser3 = 0
-    c = 0
+    
     while True:
-        lsAV=sensors.tof_sensor[0].get_distance()
-        lsDX=sensors.tof_sensor[1].get_distance()
-        lsSX=sensors.tof_sensor[2].get_distance()
-        print('lsa',lsAV)
-        print('lss',lsSX)
-        print('lsd',lsDX)
-        sleep(0.1)
-        
-        #controllo
-        if ( lsSX < muro):
-            laser1 = 1
-        else:
-            laser1 = 0
-        if( lsAV < muro  ):
-            c += 1
-            if(c == 1):
-                sleep(1)
-                lsAV=sensors.tof_sensor[0].get_distance()
-                print('lsa',lsAV)
-            else:
-                laser2 = 1
-        else:
-            laser2 = 0
-        if( lsDX < muro ):
-            laser3 = 1
-        else:
-            laser3 = 0
-        
-        
-        
-        
-        if(laser3 == 0):
-            destra()
-            sleep(4)
-            continue
-        elif (laser2 == 0):
-            bus.write_byte(arduino,avanti)
+        if a==1:
+            a=0
             sleep(0.5)
-            bus.write_byte(arduino, fermo)
-            sleep(3.5)
-            continue
-        elif(laser1 == 0):
-            sinistra()
-            sleep(4)
-            continue
+            c = 0
+            #while True:
+            lsAV=sensors.tof_sensor[0].get_distance()
+            lsDX=sensors.tof_sensor[1].get_distance()
+            lsSX=sensors.tof_sensor[2].get_distance()
+            print('lsa',lsAV)
+            print('lss',lsSX)
+            print('lsd',lsDX)
+            sleep(0.1)
+            
+            #controllo
+            if ( lsSX < muro):
+                laser1 = 1
+            else:
+                laser1 = 0
+            if( lsAV < muro  ):
+                c += 1
+                if(c == 1):
+                    sleep(1)
+                    lsAV=sensors.tof_sensor[0].get_distance()
+                    print('lsa',lsAV)
+                else:
+                    laser2 = 1
+            else:
+                laser2 = 0
+            if( lsDX < muro ):
+                laser3 = 1
+            else:
+                laser3 = 0
+            
+            
+            
+            
+            if(laser3 == 0):
+                destra()
+                sleep(4)
+                #continue
+            elif (laser2 == 0):
+                bus.write_byte(arduino,avanti)
+                sleep(0.5)
+                bus.write_byte(arduino, fermo)
+                sleep(3.5)
+                #continue
+            elif(laser1 == 0):
+                sinistra()
+                sleep(4)
+                #continue
+            else:
+                destra_x2()
+                destra_x2()
+                sleep(3)
+                #continue
         else:
-            destra_x2()
-            destra_x2()
-            sleep(3)
-            continue
+            sleep(0.5)
             
         
         
