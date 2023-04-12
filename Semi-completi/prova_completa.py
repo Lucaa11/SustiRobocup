@@ -3,8 +3,8 @@ import numpy as np
 import subprocess
 import multiprocessing
 #from multiprocessing import *
-import sys
-from stl import VL6180Xs
+import libL
+from libL import VL6180Xs
 from time import sleep
 import busio
 import smbus
@@ -25,14 +25,18 @@ inv_sinistra = 0x01
 rallenta_destra = 0x28
 rallenta_sinistra = 0x29
 avanti = 0x02
+raddrizzamento_sinistra = 0x52
+raddrizzamento_destra = 0x54
 
 #LASER
 sens1 = 0x11
 sens2 = 0x12
 sens3 = 0x13
+sens4 = 0x14
+sens5 = 0x15
 
 #LASER
-sensors=VL6180Xs(numSens=3)
+sensors=VL6180Xs(numSens=5)
 for sensor in sensors.tof_sensor:
     if sensor.idModel != 0xB4:
         print("Not a valid sensor id: %X" % sensor.idModel)
@@ -111,7 +115,8 @@ def sinistra():
     bus.write_byte(arduino, fermo)
     
 
-
+def raddrizzamento(lsDX1,lsDX2):
+    if
 
 def movimento():
     
@@ -119,6 +124,8 @@ def movimento():
     laser1 = 0
     laser2 = 0
     laser3 = 0
+    laser4 = 0
+    laser5 = 0
     
     while True:
         if a==1:
@@ -127,15 +134,20 @@ def movimento():
             c = 0
             #while True:
             lsAV=sensors.tof_sensor[0].get_distance()
-            lsDX=sensors.tof_sensor[1].get_distance()
-            lsSX=sensors.tof_sensor[2].get_distance()
-            print('lsa',lsAV)
-            print('lss',lsSX)
-            print('lsd',lsDX)
-            sleep(0.1)
+            lsDX1=sensors.tof_sensor[1].get_distance()
+            lsDX2=sensors.tof_sensor[2].get_distance()
+            lsSX1=sensors.tof_sensor[3].get_distance()
+            lsSX2=sensors.tof_sensor[4].get_distance()
+            print('laser_avanti = ',lsAV)
+            print('laser1_sinistra = ',lsSX1)
+            print('laser2_sinistra = ',lsSX2)
+            print('laser1_destra = ',lsDX1)
+            print('laser2_destra = ',lsDX2)
+            print('--------------------------------------')
+            sleep(1)
             
             #controllo
-            if ( lsSX < muro):
+            if (( lsSX1 < muro) and (lsSX2 < muro)):
                 laser1 = 1
             else:
                 laser1 = 0
@@ -149,7 +161,7 @@ def movimento():
                     laser2 = 1
             else:
                 laser2 = 0
-            if( lsDX < muro ):
+            if(( lsDX1 < muro )and (lsDX2 < muro)):
                 laser3 = 1
             else:
                 laser3 = 0

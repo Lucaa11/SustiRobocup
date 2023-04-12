@@ -1,5 +1,5 @@
-import sys
-from stl import VL6180Xs
+import libL
+from libL import VL6180Xs
 from time import sleep
 import busio
 import smbus
