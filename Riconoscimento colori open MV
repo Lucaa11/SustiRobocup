@@ -1,0 +1,61 @@
+import sensor
+import time
+import math
+from pyb import LED
+import image
+
+red = (4, 42, 127, 11, -78, 127)
+green = (32, 12, -34, -10, -78, 78)
+yellow = (100, 0, -128, 127, 15, 127)
+
+thresholds = [ red, green, yellow ]
+
+sensor.reset()
+sensor.set_pixformat(sensor.RGB565)
+sensor.set_framesize(sensor.QVGA)
+sensor.skip_frames(time=2000)
+sensor.set_auto_gain(False)  # must be turned off for color tracking
+sensor.set_auto_whitebal(False)  # must be turned off for color tracking
+
+clock = time.clock()
+
+red_led = LED(1)
+green_led = LED(2)
+yellow_led = LED(3)
+
+
+while True:
+
+    clock.tick()
+    img = sensor.snapshot()
+    img = img.rotation_corr()
+
+
+    for blob in img.find_blobs(thresholds, pixels_threshold=100, area_threshold=1000, merge=True):
+
+       if blob.code() == 1:
+            print("Numero di pixel nel blob COLORE ROSSO :", (blob.pixels()))
+            img.draw_rectangle(blob.rect())
+            print("Red")
+            red_led.on()
+            time.sleep(0.07)
+            red_led.off()
+
+       if blob.code() == 2:
+            print("Numero di pixel nel blob COLORE VERDE : ", (blob.pixels()))
+            img.draw_rectangle(blob.rect())
+            print("Green")
+            green_led.on()
+            time.sleep(0.07)
+            green_led.off()
+
+       if blob.code() == 4:
+            print("Numero di pixel nel blob COLORE GIALLO:", (blob.pixels()))
+            img.draw_rectangle(blob.rect())
+            print("Yellow")
+            red_led.on()
+            green_led.on()
+            time.sleep(0.07)
+            green_led.off()
+            red_led.off()
+
